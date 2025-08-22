@@ -27,4 +27,4 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: postgres-database-secret
-                key: password
+                key: dbpassword
