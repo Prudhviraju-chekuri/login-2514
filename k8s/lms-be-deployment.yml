@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-be-deployment
+  labels:
+    app: lms-be
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lms-be
+  template:
+    metadata:
+      labels:
+        app: lms-be
+    spec:
+      containers:
+      - name: lms-be-cont
+        image: prchekuri/lms-be
+        ports:
+          - containerPort: 4000
+        envFrom:
+          - configMapRef:
+              name: beconfigmap
+        env:
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-database-secret
+                key: password
