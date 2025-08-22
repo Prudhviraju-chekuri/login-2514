@@ -1,10 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: lmsbe-cluster-ip-service
+  name: lmsbe-nodeport-ip-service
 spec:
-  type: ClusterIP # Optional
+  type: NodePort # Optional
   selector:
     app: lms-be
   ports:
     - port: 4000
+      targetPort: 4000
+      nodePort: 32345
