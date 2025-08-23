@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-fe-deployment
+  labels:
+    app: lms-fe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lms-fe
+  template:
+    metadata:
+      labels:
+        app: lms-fe
+    spec:
+      containers:
+      - name: lms-fe-cont
+        image: prchekuri/lms-fe
+        ports:
+          - containerPort: 80
