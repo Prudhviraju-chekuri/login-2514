@@ -19,12 +19,9 @@ spec:
         image: prchekuri/lms-be
         ports:
           - containerPort: 4000
-        envFrom:
-          - configMapRef:
-              name: beconfigmap
         env:
-          - name: DB_PASSWORD
+          - name: DATABASE_URL
             valueFrom:
               secretKeyRef:
-                name: postgres-database-secret
-                key: dbpassword
+                name: be-db-secret
+                key: DATABASE_URL
