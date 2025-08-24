@@ -25,3 +25,4 @@ spec:
               secretKeyRef:
                 name: be-db-secret
                 key: DATABASE_URL
+        command: ["sh", "-c", "node build/index.js || sleep 3600"]
