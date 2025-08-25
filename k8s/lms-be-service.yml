@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: lmsbe-nodeport-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: lms-be
   ports:
     - port: 4000
       targetPort: 4000
-      nodePort: 32000
