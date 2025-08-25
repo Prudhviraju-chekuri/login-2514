@@ -19,10 +19,12 @@ spec:
         image: prchekuri/lms-be
         ports:
           - containerPort: 4000
+        envFrom:
+          - configMapRef:
+              name: beconfigmap
         env:
-          - name: DATABASE_URL
+          - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: be-db-secret
-                key: DATABASE_URL
-        command: ["sh", "-c", "node build/index.js || sleep 3600"]
+                name: lms-db-secret
+                key: password

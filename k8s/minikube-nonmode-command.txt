@@ -1,0 +1,9 @@
+sudo apt-get update && sudo apt-get install -y curl wget git make socat conntrack iptables apt-transport-https ca-certificates curl && \
+curl -fsSL https://get.docker.com | sudo sh && sudo usermod -aG docker $USER && \
+wget https://go.dev/dl/go1.23.1.linux-amd64.tar.gz && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.1.linux-amd64.tar.gz && rm go1.23.1.linux-amd64.tar.gz && export PATH=$PATH:/usr/local/go/bin && echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc && \
+git clone https://github.com/Mirantis/cri-dockerd.git ~/cri-dockerd && cd ~/cri-dockerd/cri-dockerd && make clean && make cri-dockerd && sudo cp cri-dockerd /usr/local/bin/ && sudo cp packaging/systemd/* /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now cri-docker.service && sudo systemctl enable --now cri-docker.socket && \
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && chmod +x kubectl && sudo mv kubectl /usr/local/bin/ && \
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64 && \
+export CHANGE_MINIKUBE_NONE_USER=true && sudo minikube delete --all --purge || true && sudo minikube start --driver=none --container-runtime=docker --cri-socket=/var/run/cri-dockerd.sock && \
+sudo mv /root/.kube $HOME/ && sudo mv /root/.minikube $HOME/ && sudo chown -R $USER:$USER $HOME/.kube $HOME/.minikube && export KUBECONFIG=$HOME/.kube/config && minikube update-context && \
+kubectl get nodes && kubectl get pods -A

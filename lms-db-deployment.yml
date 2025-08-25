@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-db-deployment
+  labels:
+    app: lms-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lms-db
+  template:
+    metadata:
+      labels:
+        app: lms-db
+    spec:
+      containers:
+        - name: lms-db-cont
+          image: postgres:16
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lms-db-secret
+                  key: password
