@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: lmsfe-nodeport-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: lms-fe
   ports:
     - port: 80
       targetPort: 80
-      nodePort: 30080
