@@ -5,7 +5,7 @@ metadata:
 data:
   PORT: "4000"
   MODE: Dev
-  DB_HOST: lms-db-service
+  DB_HOST: lms-db-rds.ctiqea820a3m.us-west-1.rds.amazonaws.com
   DB_NAME: postgres
   DB_PORT: "5432"
   DB_USER: postgres
